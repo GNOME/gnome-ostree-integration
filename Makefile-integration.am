@@ -1,0 +1,41 @@
+# Copyright (C) 2012 Colin Walters <walters@verbum.org>
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the
+# Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+# Boston, MA 02111-1307, USA.
+
+INSTALL_DATA_HOOKS += integration-install-data-hook
+
+BUILT_SOURCES += system-release os-release
+
+INTEGRATION_SUBS =  -e "s|@OS_NAME\@|$(OS_NAME)|" \
+	-e "s|@OS_ID\@|$(OS_ID)|" \
+	-e "s|@OS_VERSION\@|$(OS_VERSION)|" \
+	-e "s|@OS_PRETTY_NAME\@|$(OS_PRETTY_NAME)|" \
+	-e "s|@PACKAGE_URL\@|$(PACKAGE_URL)|"
+
+system-release: Makefile
+	$(AM_V_GEN)echo "$(OS_PRETTY_NAME)" > $@.tmp && mv $@.tmp $@
+
+os-release: $(srcdir)/src/os-release.in Makefile
+	sed $(INTEGRATION_SUBS) < $< > $@.tmp && mv $@.tmp $@
+
+integration-install-data-hook: os-release system-release
+	mkdir -p $(DESTDIR)$(prefix)/lib/systemd/system
+	ln -sf gdm.service $(DESTDIR)$(prefix)/lib/systemd/system/display-manager.service
+	ln -sf NetworkManager.service $(DESTDIR)$(prefix)/lib/systemd/system/dbus-org.freedesktop.NetworkManager.service
+	install -D os-release $(DESTDIR)$(sysconfdir)/os-release
+	install -D $(builddir)/system-release $(DESTDIR)$(sysconfdir)/system-release
+	install -D $(srcdir)/src/lib-passwd $(DESTDIR)$(prefix)/lib/passwd
+	install -D $(srcdir)/src/lib-group $(DESTDIR)$(prefix)/lib/group
