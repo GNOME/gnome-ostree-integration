@@ -39,3 +39,4 @@ integration-install-data-hook: os-release system-release
 	install -D $(builddir)/system-release $(DESTDIR)$(sysconfdir)/system-release
 	install -D $(srcdir)/src/lib-passwd $(DESTDIR)$(prefix)/lib/passwd
 	install -D $(srcdir)/src/lib-group $(DESTDIR)$(prefix)/lib/group
+	install -D $(srcdir)/src/gnome-logo.png $(DESTDIR)$(datadir)/pixmaps/system-logo-white.png
