@@ -37,6 +37,7 @@ integration-install-data-hook: os-release system-release
 	ln -sf NetworkManager.service $(DESTDIR)$(prefix)/lib/systemd/system/dbus-org.freedesktop.NetworkManager.service
 	install -D os-release $(DESTDIR)$(sysconfdir)/os-release
 	install -D $(builddir)/system-release $(DESTDIR)$(sysconfdir)/system-release
+	install -D $(srcdir)/src/tmpfiles-gnome-ostree.conf $(DESTDIR)$(prefix)/lib/tmpfiles.d/gnome-ostree.conf
 	install -D $(srcdir)/src/lib-passwd $(DESTDIR)$(prefix)/lib/passwd
 	install -D $(srcdir)/src/lib-group $(DESTDIR)$(prefix)/lib/group
 	install -D $(srcdir)/src/gnome-logo.png $(DESTDIR)$(datadir)/pixmaps/system-logo-white.png
