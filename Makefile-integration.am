@@ -19,6 +19,8 @@ INSTALL_DATA_HOOKS += integration-install-data-hook
 
 BUILT_SOURCES += system-release os-release
 
+BIN_SUBS = -e "s|@pkglibdir\@|$(pkglibdir)|"
+
 INTEGRATION_SUBS =  -e "s|@OS_NAME\@|$(OS_NAME)|" \
 	-e "s|@OS_ID\@|$(OS_ID)|" \
 	-e "s|@OS_VERSION\@|$(OS_VERSION)|" \
@@ -30,6 +32,20 @@ system-release: Makefile
 
 os-release: $(srcdir)/src/os-release.in Makefile
 	sed $(INTEGRATION_SUBS) < $< > $@.tmp && mv $@.tmp $@
+
+gnome-ostree-initial-setup-by-default.service: src/gnome-ostree-initial-setup-by-default.service.in
+	$(AM_V_GEN) sed $(BIN_SUBS) < $< > $@.tmp && mv $@.tmp $@
+
+units_DATA =
+unitsdir = $(prefix)/lib/systemd/system
+
+integration_SCRIPTS = 
+integrationdir = $(pkglibdir)
+
+if ENABLE_INITIAL_SETUP
+integration_SCRIPTS += src/initial-setup-by-default
+units_DATA += src/gnome-ostree-initial-setup-by-default.service
+endif
 
 integration-install-data-hook: os-release system-release
 	mkdir -p $(DESTDIR)$(prefix)/lib/systemd/system
