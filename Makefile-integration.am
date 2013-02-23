@@ -51,7 +51,8 @@ integration-install-data-hook: os-release system-release
 	mkdir -p $(DESTDIR)$(prefix)/lib/systemd/system
 	ln -sf gdm.service $(DESTDIR)$(prefix)/lib/systemd/system/display-manager.service
 	ln -sf NetworkManager.service $(DESTDIR)$(prefix)/lib/systemd/system/dbus-org.freedesktop.NetworkManager.service
-	ln -sf NetworkManager.service $(DESTDIR)$(prefix)/lib/systemd/system/multi-user.target.wants
+	mkdir -p $(DESTDIR)$(prefix)/lib/systemd/system/multi-user.target.wants
+	ln -sf NetworkManager.service $(DESTDIR)$(prefix)/lib/systemd/system/multi-user.target.wants/NetworkManager.service
 	install -D os-release $(DESTDIR)$(sysconfdir)/os-release
 	install -D $(builddir)/system-release $(DESTDIR)$(sysconfdir)/system-release
 	install -D $(srcdir)/src/tmpfiles-gnome-ostree.conf $(DESTDIR)$(prefix)/lib/tmpfiles.d/gnome-ostree.conf
