@@ -15,8 +15,6 @@
 # Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
-INSTALL_DATA_HOOKS += integration-install-data-hook
-
 BUILT_SOURCES += system-release os-release
 
 BIN_SUBS = -e "s|@pkglibdir\@|$(pkglibdir)|"
@@ -47,15 +45,25 @@ integration_SCRIPTS += src/initial-setup-by-default
 units_DATA += src/gnome-ostree-initial-setup-by-default.service
 endif
 
+INSTALL_DATA_HOOKS += integration-install-data-hook
 integration-install-data-hook: os-release system-release
-	mkdir -p $(DESTDIR)$(prefix)/lib/systemd/system
-	ln -sf gdm.service $(DESTDIR)$(prefix)/lib/systemd/system/display-manager.service
-	ln -sf NetworkManager.service $(DESTDIR)$(prefix)/lib/systemd/system/dbus-org.freedesktop.NetworkManager.service
-	mkdir -p $(DESTDIR)$(prefix)/lib/systemd/system/multi-user.target.wants
-	ln -sf NetworkManager.service $(DESTDIR)$(prefix)/lib/systemd/system/multi-user.target.wants/NetworkManager.service
 	install -D os-release $(DESTDIR)$(sysconfdir)/os-release
 	install -D $(builddir)/system-release $(DESTDIR)$(sysconfdir)/system-release
 	install -D $(srcdir)/src/tmpfiles-gnome-ostree.conf $(DESTDIR)$(prefix)/lib/tmpfiles.d/gnome-ostree.conf
 	install -D $(srcdir)/src/lib-passwd $(DESTDIR)$(prefix)/lib/passwd
 	install -D $(srcdir)/src/lib-group $(DESTDIR)$(prefix)/lib/group
 	install -D $(srcdir)/src/gnome-logo.png $(DESTDIR)$(datadir)/pixmaps/system-logo-white.png
+
+ENABLED_SERVICES = NetworkManager ModemManager
+DBUS_ENABLED_SERVICES = org.freedesktop.NetworkManager org.freedesktop.ModemManager
+
+INSTALL_DATA_HOOKS += integration-services-hook
+integration-services-hook:
+	mkdir -p $(DESTDIR)$(prefix)/lib/systemd/system
+	ln -sf gdm.service $(DESTDIR)$(prefix)/lib/systemd/system/display-manager.service
+	mkdir -p $(DESTDIR)$(prefix)/lib/systemd/system/multi-user.target.wants
+	for svcname in $(ENABLED_SERVICES); do \
+	  ln -sf $${svcname}.service $(DESTDIR)$(prefix)/lib/systemd/system/multi-user.target.wants/$${svcname}.service; \
+	done
+	ln -sf NetworkManager.service $(DESTDIR)$(prefix)/lib/systemd/system/dbus-org.freedesktop.NetworkManager.service
+	ln -sf ModemManager.service $(DESTDIR)$(prefix)/lib/systemd/system/dbus-org.freedesktop.ModemManager.service
