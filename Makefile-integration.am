@@ -40,11 +40,6 @@ unitsdir = $(prefix)/lib/systemd/system
 integration_SCRIPTS = 
 integrationdir = $(pkglibdir)
 
-if ENABLE_INITIAL_SETUP
-integration_SCRIPTS += src/initial-setup-by-default
-units_DATA += src/gnome-ostree-initial-setup-by-default.service
-endif
-
 INSTALL_DATA_HOOKS += integration-install-data-hook
 integration-install-data-hook: os-release system-release
 	install -D os-release $(DESTDIR)$(sysconfdir)/os-release

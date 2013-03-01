@@ -23,3 +23,4 @@ pulse:*:84:84:pulse:/:/bin/false
 colord:*:85:85:colord:/:/bin/false
 sshd:*:86:86:sshd:/:/bin/false
 rtkit:*:87:87:rtkit:/:/bin/false
+gnome-initial-setup:*:88:88:gnome-initial-setup:/:/bin/false

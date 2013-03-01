@@ -44,3 +44,4 @@ pulse:*:84:
 colord:*:85:
 sshd:*:86:
 rtkit:*:87:
+gnome-initial-setup:*:88:

@@ -18,11 +18,6 @@ AM_INIT_AUTOMAKE([1.11 -Wno-portability foreign no-define tar-ustar no-dist-gzip
 AM_MAINTAINER_MODE([enable])
 AM_SILENT_RULES([yes])
 
-AC_ARG_ENABLE(initial-setup,
-	    AS_HELP_STRING([--enable-initial-setup], [Enable initial setup by default]),,
-	    enable_initial_setup=no)
-AM_CONDITIONAL(ENABLE_INITIAL_SETUP, test x$enable_initial_setup != xno)
-
 AM_PATH_PYTHON([2.6])
 
 AC_CONFIG_FILES([
