@@ -45,3 +45,6 @@ colord:*:85:
 sshd:*:86:
 rtkit:*:87:
 gnome-initial-setup:*:88:
+avahi:*:89:
+avahi-autoipd:*:90:
+systemd-journal:*:91:

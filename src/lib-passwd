@@ -24,3 +24,5 @@ colord:*:85:85:colord:/:/bin/false
 sshd:*:86:86:sshd:/:/bin/false
 rtkit:*:87:87:rtkit:/:/bin/false
 gnome-initial-setup:*:88:88:gnome-initial-setup:/run/gnome-initial-setup:/bin/false
+avahi:*:89:89:avahi:/run/avahi:/bin/false
+avahi-autoipd:*:90:90:avahi-autoipd:/run/avahi-autoipd:/bin/false
