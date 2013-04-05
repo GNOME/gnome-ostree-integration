@@ -1,0 +1,12 @@
+installbootdir = $(bindir)
+installboot_SCRIPTS = src/installboot/gnome-ostree-install-boot
+
+systemdservicemaindir = $(SYSTEMD_SYSTEM_UNIT_DIR)
+systemdservicemain_DATA = 					\
+	gnome-ostree-install-bootloader.service			\
+	src/installboot/gnome-ostree-install-bootloader.target	\
+	$(NULL)
+
+%.service: src/installboot/%.service.in Makefile
+	@sed -e "s|\@servicedir\@|$(libexecdir)|" $< | \
+	sed -e "s|\@bindir\@|$(bindir)|" > $@.tmp && mv $@.tmp $@

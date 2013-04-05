@@ -1,0 +1,4 @@
+[Unit]
+Description=Bootloader installer
+Requires=gnome-ostree-install-bootloader.service
+AllowIsolate=yes

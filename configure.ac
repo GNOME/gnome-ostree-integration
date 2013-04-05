@@ -19,6 +19,13 @@ AM_MAINTAINER_MODE([enable])
 AM_SILENT_RULES([yes])
 
 AM_PATH_PYTHON([2.6])
+PKG_PROG_PKG_CONFIG
+
+AC_ARG_WITH([systemdsystemunitdir],
+            AS_HELP_STRING([--with-systemdsystemunitdir=DIR],
+                           [Directory for systemd service files]),
+                [with_systemdsystemunitdir=$withval], [with_systemdsystemunitdir=$($PKG_CONFIG --variable=systemdsystemunitdir systemd)])
+AC_SUBST(SYSTEMD_SYSTEM_UNIT_DIR, [$with_systemdsystemunitdir])
 
 AC_CONFIG_FILES([
 Makefile

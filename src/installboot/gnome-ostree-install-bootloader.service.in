@@ -1,0 +1,11 @@
+[Unit]
+Description=One off bootloader installer
+AllowIsolate=yes
+Requires=basic.target
+
+[Service]
+Type=oneshot
+ExecStart=@bindir@/gnome-ostree-install-boot
+
+[Install]
+WantedBy=gnome-ostree-install-bootloader.target
