@@ -31,9 +31,6 @@ system-release: Makefile
 os-release: $(srcdir)/src/os-release.in Makefile
 	sed $(INTEGRATION_SUBS) < $< > $@.tmp && mv $@.tmp $@
 
-gnome-ostree-initial-setup-by-default.service: src/gnome-ostree-initial-setup-by-default.service.in
-	$(AM_V_GEN) sed $(BIN_SUBS) < $< > $@.tmp && mv $@.tmp $@
-
 units_DATA =
 unitsdir = $(prefix)/lib/systemd/system
 

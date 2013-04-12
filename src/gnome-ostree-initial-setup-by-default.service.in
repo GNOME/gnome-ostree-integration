@@ -1,8 +1,0 @@
-[Unit]
-Description=Enable Initial Setup
-ConditionPathExists=!/var/lib/gdm/completed-initial-setup
-
-[Service]
-ExecStart=@pkglibdir@/initial-setup-by-default
-Type=oneshot
-Before=gdm.service

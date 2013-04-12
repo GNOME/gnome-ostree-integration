@@ -1,6 +1,0 @@
-#!/bin/bash
-# This is a gross hack to invert the GDM default of not
-# running the initial setup.
-
-touch /var/lib/gdm/run-initial-setup
-touch /var/lib/gdm/completed-initial-setup
