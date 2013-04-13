@@ -46,6 +46,13 @@ integration-install-data-hook: os-release system-release
 	install -D $(srcdir)/src/lib-group $(DESTDIR)$(prefix)/lib/group
 	install -D $(srcdir)/src/gnome-logo.png $(DESTDIR)$(datadir)/pixmaps/system-logo-white.png
 
+INSTALL_DATA_HOOKS += integration-install-pam-hook
+integration-install-pam-hook:
+	mkdir -p $(DESTDIR)$(sysconfdir)/pam.d
+	for name in common-account common-auth common-password common-session common-session-noninteractive other; do \
+	  install -D $(srcdir)/src/pam/$${name} $(DESTDIR)$(sysconfdir)/pam.d/$${name}; \
+	done
+
 ENABLED_SERVICES = NetworkManager ModemManager
 DBUS_ENABLED_SERVICES = org.freedesktop.NetworkManager org.freedesktop.ModemManager
 
