@@ -16,7 +16,7 @@ session	requisite			pam_deny.so
 # since the modules above will each just jump around
 session	required			pam_permit.so
 # and here are more per-package modules (the "Additional" block)
-session required			pam_loginuid.so
+session required			pam_loginuid.so no-overwrite
 session	optional			pam_keyinit.so revoke
 session	required			pam_systemd.so
 session	required			pam_unix.so 
