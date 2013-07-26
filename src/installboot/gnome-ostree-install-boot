@@ -26,4 +26,4 @@ if test -z "${DEVICE}"; then echo "Failed to determine device"; exit 1; fi
 
 dd if=/usr/lib/syslinux/mbr.bin of=${DEVICE}
 /usr/sbin/extlinux --install /boot/
-systemctl poweroff
+systemctl --force poweroff
