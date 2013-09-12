@@ -1,10 +1,10 @@
 AC_PREREQ([2.63])
-AC_INIT([gnome-ostree-integration], [2012.4], [walters@verbum.org], [gnome-ostree-integration], [https://live.gnome.org/OSTree/GnomeOSTree])
+AC_INIT([gnome-ostree-integration], [2013.1], [walters@verbum.org], [gnome-ostree-integration], [https://live.gnome.org/OSTree/GnomeOSTree])
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([build-aux])
 
-OS_NAME="GNOME-OSTree"
+OS_NAME="GNOME-Continuous"
 OS_ID=$PACKAGE_TARNAME
 OS_VERSION=3.10
 OS_PRETTY_NAME="$OS_NAME ($OS_VERSION, OE-Core danny, $PACKAGE_VERSION)"
