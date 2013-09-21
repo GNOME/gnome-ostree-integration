@@ -21,11 +21,43 @@ AM_SILENT_RULES([yes])
 AM_PATH_PYTHON([2.6])
 PKG_PROG_PKG_CONFIG
 
+AC_PROG_CC
+AM_PROG_CC_C_O
+
+changequote(,)dnl
+if test "x$GCC" = "xyes"; then
+  WARN_CFLAGS="-Wall -Werror=strict-prototypes -Werror=missing-prototypes \
+		-Werror=implicit-function-declaration \
+		-Werror=pointer-arith -Werror=init-self -Werror=format=2 \
+		-Werror=format-security \
+		-Werror=missing-include-dirs -Werror=aggregate-return \
+		-Werror=declaration-after-statement"
+fi
+changequote([,])dnl
+AC_SUBST(WARN_CFLAGS)
+
+# Initialize libtool
+LT_PREREQ([2.2.4])
+LT_INIT([disable-static])
+
+PKG_CHECK_MODULES(GIO_UNIX, [gio-unix-2.0 >= 2.34.0])
+
 AC_ARG_WITH([systemdsystemunitdir],
             AS_HELP_STRING([--with-systemdsystemunitdir=DIR],
                            [Directory for systemd service files]),
                 [with_systemdsystemunitdir=$withval], [with_systemdsystemunitdir=$($PKG_CONFIG --variable=systemdsystemunitdir systemd)])
 AC_SUBST(SYSTEMD_SYSTEM_UNIT_DIR, [$with_systemdsystemunitdir])
+
+AC_ARG_WITH(systemd-journal,
+	    AS_HELP_STRING([--without-systemd-journal], [Use systemd @<:@default=auto@:>@]),
+	    [], [with_systemd_journal=auto])
+AS_IF([test x$with_systemd_journal != xno], [
+  PKG_CHECK_MODULES([SYSTEMD_JOURNAL], [libsystemd-journal >= 200], have_systemd_journal=yes, have_systemd_journal=no)
+  ])
+AM_CONDITIONAL(ENABLE_SYSTEMD_JOURNAL, test x$have_systemd_journal = xyes)
+AS_IF([test x$have_systemd_journal = xyes], [
+  AC_DEFINE([ENABLE_SYSTEMD_JOURNAL],[1],[Define if you want to build with systemd journal support])
+])
 
 AC_CONFIG_FILES([
 Makefile
