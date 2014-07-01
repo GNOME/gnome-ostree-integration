@@ -58,6 +58,8 @@ DBUS_ENABLED_SERVICES = org.freedesktop.NetworkManager org.freedesktop.ModemMana
 
 INSTALL_DATA_HOOKS += integration-services-hook
 integration-services-hook:
+	mkdir -p $(DESTDIR)$(sysconfdir)/systemd/system
+	ln -sf $(prefix)/lib/systemd/system/graphical.target $(DESTDIR)$(sysconfdir)/systemd/system/default.target
 	mkdir -p $(DESTDIR)$(prefix)/lib/systemd/system
 	ln -sf gdm.service $(DESTDIR)$(prefix)/lib/systemd/system/display-manager.service
 	mkdir -p $(DESTDIR)$(prefix)/lib/systemd/system/multi-user.target.wants
