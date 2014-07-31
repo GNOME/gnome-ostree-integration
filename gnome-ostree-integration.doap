@@ -7,6 +7,7 @@
 
   <name>gnome-ostree-integration</name>
   <shortname>gnome-ostree-integration</shortname>
+  <category rdf:resource="http://api.gnome.org/doap-extensions#infrastructure" />
 
   <shortdesc xml:lang="en">GNOME OSTree core configuration</shortdesc>
 
