@@ -24,6 +24,11 @@ export PARTITION=`echo ${BOOT_PARTITION} | sed -rn "s,(.+)([0-9]),\2,p"`
 
 if test -z "${DEVICE}"; then echo "Failed to determine device"; exit 1; fi
 
-dd if=/usr/lib/syslinux/mbr.bin of=${DEVICE}
+export MBR="/usr/lib/syslinux/mbr.bin"
+# Some later versions put it in $datapkgdir
+if test -f "/usr/share/syslinux/mbr.bin"; then
+    MBR="/usr/share/syslinux/mbr.bin";
+fi
+dd if=${MBR} of=${DEVICE}
 /usr/sbin/extlinux --install /boot/
 systemctl --force poweroff
