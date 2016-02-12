@@ -1,5 +1,5 @@
 AC_PREREQ([2.63])
-AC_INIT([gnome-ostree-integration], [2016.1], [walters@verbum.org], [gnome-ostree-integration], [https://wiki.gnome.org/action/show/Projects/GnomeContinuous])
+AC_INIT([gnome-ostree-integration], [2016.1], [walters@verbum.org], [gnome-ostree-integration], [https://wiki.gnome.org/Projects/GnomeContinuous])
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([build-aux])
