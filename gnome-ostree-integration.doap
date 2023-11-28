@@ -13,9 +13,9 @@
 
   <description xml:lang="en">Default system configuration and settings</description>
 
-  <homepage rdf:resource="https://live.gnome.org/OSTree/GnomeOSTree" />
+  <homepage rdf:resource="https://wiki.gnome.org/OSTree" />
   <license rdf:resource="http://usefulinc.com/doap/licenses/lgpl" />
-  <mailing-list rdf:resource="mailto:ostree-list@gnome.org" />
+  <developer-forum rdf:resource="https://discourse.gnome.org/tag/ostree" />
 
   <programming-language>C</programming-language>
 
